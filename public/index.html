@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5fbff" />
+    <meta name="description" content="A research demonstration comparing statistical and machine-learning forecasts across geopolitics, semiconductor technology, and trade." />
+    <title>Cross-Domain Research Signal Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Cross-Domain Research Signal Lab home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Signal Lab</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="active" href="#comparison">Forecast lab</a>
+        <a href="#research">Research library</a>
+        <a href="#method">Method</a>
+      </nav>
+      <a class="header-link" href="#sources">Sources <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero page-wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Research demonstration · Monthly trade</div>
+          <h1>Do signals from one domain help forecast another?</h1>
+          <p class="hero-text">Compare statistical baselines with machine learning on a fixed, three-month forecast. Every result is time-ordered, source-linked, and shown with its limitations.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#comparison">Explore the benchmark <span aria-hidden="true">↓</span></a>
+            <a class="button button-quiet" href="#method">How it works</a>
+          </div>
+          <div class="hero-note"><span class="note-icon">i</span><span>This is a research tool for comparison—not a trading signal or a claim of causation.</span></div>
+        </div>
+        <div class="hero-visual" aria-label="The study connects policy, technology, and trade data">
+          <div class="visual-sky"></div>
+          <div class="visual-orbit orbit-one"></div>
+          <div class="visual-orbit orbit-two"></div>
+          <div class="signal-line line-one"></div>
+          <div class="signal-line line-two"></div>
+          <article class="domain-chip chip-policy"><span class="chip-icon icon-policy">↗</span><span><b>Policy</b><small>Export controls</small></span></article>
+          <article class="domain-chip chip-tech"><span class="chip-icon icon-tech">◈</span><span><b>Technology</b><small>Semiconductor signals</small></span></article>
+          <article class="domain-chip chip-trade"><span class="chip-icon icon-trade">US$</span><span><b>Trade</b><small>U.S. exports to China</small></span></article>
+          <div class="visual-caption">Three connected domains. One measurable forecast.</div>
+        </div>
+      </section>
+
+      <section class="benchmark page-wrap" id="comparison">
+        <div class="section-heading heading-row">
+          <div>
+            <div class="eyebrow">01 · Forecast comparison</div>
+            <h2>Put each model on the same test</h2>
+            <p>Choose a trade outcome. The model window, forecast horizon, and scoring rules stay consistent.</p>
+          </div>
+          <label class="case-picker">Outcome series
+            <select id="case-select" aria-label="Choose the benchmark outcome">
+              <option value="us_china">U.S. · semiconductor-related exports to China</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="status-banner" class="status-banner loading" role="status" aria-live="polite">
+          <span class="status-symbol">•••</span><span id="status-message">Loading benchmark…</span>
+        </div>
+
+        <div id="benchmark-content" class="hidden">
+          <div class="slideshow-controls" aria-label="Benchmark dashboard slides">
+            <button class="slide-button" id="slide-prev" type="button" aria-label="Previous slide" disabled>← Previous</button>
+            <span id="slide-position" class="slide-position" aria-live="polite">Slide 1 of 5 · Forecast</span>
+            <button class="slide-button" id="slide-next" type="button" aria-label="Next slide">Next →</button>
+          </div>
+          <div class="slides-viewport" id="benchmark-slides">
+            <div class="slides-track" id="slides-track">
+              <section class="benchmark-slide" aria-label="Forecast overview">
+          <div class="benchmark-intro">
+            <div>
+              <span class="micro-label">FORECAST TARGET</span>
+              <h3 id="target-title">—</h3>
+              <p id="target-series" class="muted">—</p>
+            </div>
+            <div class="target-period"><span class="micro-label">NEXT TARGET MONTH</span><strong id="target-month">—</strong><small id="last-month">—</small></div>
+          </div>
+
+          <div class="forecast-grid" id="forecast-cards"></div>
+              </section>
+              <section class="benchmark-slide" aria-label="Rolling backtest">
+          <div class="results-grid">
+            <article class="panel chart-panel">
+              <div class="panel-heading">
+                <div><span class="micro-label">ROLLING BACKTEST</span><h3>Forecasts vs. observed changes</h3></div>
+                <label class="compact-select">Model <select id="chart-model" aria-label="Choose model for backtest chart"></select></label>
+              </div>
+              <p class="panel-subtitle">Each point is a rolling three-month forecast. The backtest uses the latest curated historical values, not full real-time release vintages.</p>
+              <div id="backtest-chart" class="chart-box"></div>
+              <div class="chart-legend"><span><i class="legend-dot actual-dot"></i>Observed</span><span><i class="legend-dot forecast-dot"></i>Forecast</span></div>
+            </article>
+            <article class="panel score-panel">
+              <div class="panel-heading"><div><span class="micro-label">ERROR SCORE</span><h3>Lower is better</h3></div><span class="score-unit">MAE · pp</span></div>
+              <p class="panel-subtitle">Mean absolute error in percentage points of three-month change.</p>
+              <div id="mae-bars" class="mae-bars"></div>
+              <p class="score-footnote">This score ranks models on this historical window only. Direction accuracy is shown separately below.</p>
+            </article>
+          </div>
+              </section>
+              <section class="benchmark-slide" aria-label="Model scorecard and recurring patterns">
+          <article class="panel table-panel">
+            <div class="panel-heading"><div><span class="micro-label">MODEL SCORECARD</span><h3>One target, one evaluation window</h3></div><span id="forecast-count" class="count-pill">— origins</span></div>
+            <div class="table-scroll"><table><thead><tr><th>Model</th><th>Approach</th><th>MAE ↓</th><th>RMSE ↓</th><th>Direction ↑</th></tr></thead><tbody id="model-rows"></tbody></table></div>
+            <div id="metrics-note" class="table-note"></div>
+          </article>
+
+          <article class="panel regimes-panel">
+            <div class="panel-heading"><div><span class="micro-label">UNSUPERVISED EXPLORATION</span><h3>Recurring feature patterns</h3></div><span id="latest-cluster" class="count-pill">—</span></div>
+            <p id="regime-method" class="panel-subtitle">Exploratory K-means groups months with similar lagged feature patterns. Clusters are not predictions.</p>
+            <div id="regime-cards" class="regime-grid"></div>
+            <div id="regime-caveat" class="table-note"></div>
+          </article>
+
+              </section>
+              <section class="benchmark-slide" aria-label="Data status and sources">
+          <div class="data-notice" id="data-notice"></div>
+          <div class="citations" id="citations"></div>
+          <article class="review-panel"><div><span class="micro-label">OPTIONAL METHOD CHECK</span><h3>Ask an AI reviewer to critique the evaluation</h3><p>The reviewer can flag methodological concerns. It cannot modify forecasts or verify sources.</p></div><button class="button button-outline" id="review-button" disabled>Request critique</button><div class="review-output" id="review-output" aria-live="polite"></div></article>
+              </section>
+              <section class="benchmark-slide" aria-label="Saved forecast history">
+        <article class="panel saved-history-panel">
+          <div class="panel-heading"><div><span class="micro-label">FOLLOW-UP EVALUATION</span><h3>Saved forecasts and later outcomes</h3></div><span class="count-pill">Curated runs only</span></div>
+          <p class="panel-subtitle">Approved forecasts can be saved by the maintainer. When later observations are imported, the app links them to the original forecast for follow-up scoring.</p>
+          <div id="history-content" class="history-content"><span class="muted">Loading saved forecast history…</span></div>
+        </article>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="research-section" id="research">
+        <div class="page-wrap">
+          <div class="section-heading heading-row">
+            <div><div class="eyebrow">02 · Evidence base</div><h2>Research behind the signals</h2><p>A starter library across policy, semiconductor technology, and markets. Papers provide context; they are not training labels.</p></div>
+            <label class="case-picker">Filter papers
+              <select id="paper-filter" aria-label="Filter research papers">
+                <option value="">All three domains</option>
+                <option value="Geopolitics">Geopolitics & policy</option>
+                <option value="Technology">Semiconductor technology</option>
+                <option value="Economics & Markets">Economics & markets</option>
+              </select>
+            </label>
+          </div>
+          <div id="paper-count" class="library-meta">Loading research library…</div>
+          <div id="paper-grid" class="paper-grid"></div>
+        </div>
+      </section>
+
+      <section class="method-section page-wrap" id="method">
+        <div class="section-heading"><div class="eyebrow">03 · Method and guardrails</div><h2>Designed to test—not assume—the value of AI</h2><p>More features or a more complex algorithm do not guarantee a better forecast. The comparison isolates where any improvement comes from.</p></div>
+        <div class="method-grid">
+          <article class="method-card"><span class="method-number">01</span><h3>Time-aware testing</h3><p>Expanding-window backtests preserve chronology. Each training label is included only after its three-month outcome has matured.</p></article>
+          <article class="method-card"><span class="method-number">02</span><h3>Fair baselines</h3><p>No-change and recent-momentum baselines sit beside linear statistical models and a small random-forest ML model.</p></article>
+          <article class="method-card"><span class="method-number">03</span><h3>Cross-domain test</h3><p>Compare target-history-only models with versions that add lagged policy and sector/economic indicators.</p></article>
+          <article class="method-card"><span class="method-number">04</span><h3>Bounded interpretation</h3><p>Associations are not causal proof. Trade values do not measure welfare, industrial capability, or strategic autonomy on their own.</p></article>
+        </div>
+        <div class="upload-panel">
+          <div><span class="micro-label">BRING YOUR OWN DATA</span><h3>Try a monthly series</h3><p>Upload is analyzed in memory for this request only. Required: <code>period</code> and <code>target_value_usd</code>, with one row per month and at least 73 consecutive observations. Uploaded rows are temporary and are not saved.</p></div>
+          <div class="upload-actions"><a class="button button-outline" href="/api/template">Download CSV template</a><label class="file-input-label">Choose CSV<input type="file" id="csv-file" accept=".csv,text/csv" /></label><button class="button button-orange" id="analyze-button" disabled>Analyze series</button></div>
+          <div id="upload-message" class="upload-message" role="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="sources-section" id="sources">
+        <div class="page-wrap source-layout">
+          <div><div class="eyebrow">04 · Provenance</div><h2>Sources and limitations</h2><p>Official data are valuable, but can be revised, incomplete, or defined differently across time. Read the source notes before interpreting a result.</p></div>
+          <div id="source-list" class="source-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="page-wrap footer-inner"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Signal Lab</span></a><span>College research demonstration · Forecasts are uncertain and not professional advice.</span><a href="#top">Back to top ↑</a></div></footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+variable,source_name,source_url,series_id,license_or_terms,retrieved_on_utc,original_filename,period_start,period_end,frequency,units,transformation,release_lag_or_availability,revision_policy,notes
+geopolitical_risk_index,,,,,,,,,,,,,,
+chip_supply_stress_index,,,,,,,,,,,,,,
+energy_price_change_pct,,,,,,,,,,,,,,
+broad_market_return_pct,,,,,,,,,,,,,,
+semiconductor_return_pct,,,,,,,,,,,,,,
